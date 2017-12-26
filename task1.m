@@ -1,9 +1,9 @@
 clear;
 clc;
 u1Zero = 1;
-u2Zero = 1;
-M = 100;
-N = 100;
+u2Zero = -1;
+M = 200;
+N = 200;
 mju = 1;
 x = linspace(0, 1, M + 1);
 xStep = 1 ./ M;
@@ -25,7 +25,7 @@ title('Solutions');
 xlabel('X');
 ylabel('Y');
 zlabel('U(x, y)');
-figure;
+% figure;
 % someMat = real(solveDirichlet(@(x, y) -2.*(sin(pi.*x) + sin(pi*y)), @(x) sin(pi.*x), ...
 %     @(x) sin(pi.*x), 1, M, N));
 % surf( xGrid, yGrid, abs(someMat - sin(pi.*xGrid) - sin(pi.*yGrid)));
