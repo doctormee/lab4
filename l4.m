@@ -1,20 +1,24 @@
 %%
 clc;
 n = 100;
-A = complex([1 1;1 1; 1 1],[0 0;0 0; 0 0])
+A = complex([1 1;1 1; 1 1],[0 0;0 0; 0 0]);
 B = complex([2 2;2 2; 2 2],[0 0; 0 0; 0 0]);
 C = complex([1 1;1 1; 1 1],[0 0; 0 0; 0 0]);
-A = complex(3,4);
-B = complex(-1,2);
-C = complex(1,4);
+A=cat(3,A,A);
+B=cat(3,B,B);
+C=cat(3,C,C);
+% A = complex(3,4);
+% B = complex(-1,2);
+% C = complex(1,4);
 %A = complex(0,0)
 %B = complex(2,0)
 %C = complex(1,0)
 [x1, x2, x3, x4] = biquadsolve(A, B, C)
-disp(norm(A.*x1.*x1.*x1.*x1 + B.*x1.*x1 + C));
-disp(norm(A.*x2.*x2.*x2.*x2 + B.*x2.*x2 + C));
-disp(norm(A.*x3.*x3.*x3.*x3 + B.*x3.*x3 + C));
-disp(norm(A.*x4.*x4.*x4.*x4 + B.*x4.*x4 + C));
+disp('Error:');
+disp(norm(A.*x1.^4 + B.*x1.^2 + C));
+disp(norm(A.*x2.^4 + B.*x2.^2 + C));
+disp(norm(A.*x3.^4 + B.*x3.^2 + C));
+disp(norm(A.*x4.^4 + B.*x4.^2 + C));
 %%
 clc;
 n = 100;
@@ -27,6 +31,7 @@ diff2 = sqrt(sum(sum((A - Q1*R1).^2)))
 diff3 = sqrt(sum(sum((A - Q2*R2).^2)))
 %%
 n = 40;
+N = 5;
 t1 = zeros(1, n);
 t2 = zeros(1, n);
 t3 = zeros(1, n);
@@ -75,3 +80,5 @@ legend('qr(A)', 'qr_c(A)', 'qr_M(A)');
 xlabel('n');
 ylabel('y');
 title('Accuracy');
+% figure(3);
+% plot(x, sum(polyfit(x, t1(2:end), N)), 'k', x,  sum(polyfit(x, t2(2:end), N)), 'b', x,  sum(polyfit(x, t(2:end), N)), 'm');

@@ -1,9 +1,9 @@
 clear;
 clc;
 u1Zero = 1;
-u2Zero = -1;
-M = 200;
-N = 200;
+u2Zero = -2;
+M = 10;
+N = 10;
 mju = 1;
 x = linspace(0, 1, M + 1);
 xStep = 1 ./ M;
