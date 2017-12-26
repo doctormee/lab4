@@ -19,7 +19,7 @@ disp(norm(A.*x4.*x4.*x4.*x4 + B.*x4.*x4 + C));
 clc;
 n = 100;
 A = [1 1 1; 1 1 1; 2 1 3];
-[Q, R] = gr_c(A)
+[Q, R] = qr_c(A)
 diff1 = sqrt(sum(sum((A - Q*R).^2)))
 [Q1, R1] = qr_M(A)
 diff2 = sqrt(sum(sum((A - Q1*R1).^2)))

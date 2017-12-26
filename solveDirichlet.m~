@@ -38,17 +38,17 @@ function [ res ] = solveDirichlet( fHandle, xiHandle, etaHandle, mju, M, N )
     
     extVec = [0; firstCol];
     ind = triu(indicesM) + 1 - eye(M);
-    A11 = extVec(ind);
+    A11 = reshape(extVec(ind), size(ind));
     extVec = [0; firstColI];
     ind = tril(indicesM) + 1;
     A11 = A11 + extVec(ind);
     
     extVec = [0; firstRow];
     ind = triu(indicesN) + 1 - eye(N - 1);
-    A22 = extVec(ind);
+    A22 = reshape(extVec(ind), size(ind));
     extVec = [0; firstRowI];
     ind = tril(indicesN) + 1;
-    A22 = A22 + extVec(ind);
+    A22 = A22 + extVec(ind));
     
     A = [A11, A12; A21, A22];
     %now we have to find the right-side of the linear system
