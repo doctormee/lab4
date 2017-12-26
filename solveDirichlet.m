@@ -1,14 +1,14 @@
 function [ res ] = solveDirichlet( fHandle, xiHandle, etaHandle, mju, M, N )
-    x = linspace(0, 1, M);
+    x = linspace(0, 1, M + 1);
     xStep = 1 ./ M;
-    y = linspace(0, 1, N);
+    y = linspace(0, 1, N + 1);
     yStep = 1 ./ N;
     n = 1:N;
     m = 1:M;
     theta = @(k, l) 1 ./ ((-4 ./ xStep.^2) .* sin(pi .* (k - 1) ./ M) .^2 + ...
         (-4 ./ yStep.^2) .* sin(pi .* (l - 1) ./ N) .^2 - mju);
     phi = zeros(M, N);
-    [yGrid, xGrid] = meshgrid(y(2:end), x(2:end));
+    [yGrid, xGrid] = meshgrid(y(2:(end - 1)), x(2:(end - 1)));
     [nGrid, mGrid] = meshgrid(n, m);
     Theta = theta(mGrid, nGrid);
     phi(2:end, 2:end) = fHandle(xGrid, yGrid); %now we know all phies, except first ones
@@ -52,7 +52,7 @@ function [ res ] = solveDirichlet( fHandle, xiHandle, etaHandle, mju, M, N )
     
     A = [A11, A12; A21, A22];
     %now we have to find the right-side of the linear system
-    yZero = [xiHandle(x), etaHandle(y(2:end))].';
+    yZero = [xiHandle(x(1:(end-1))), etaHandle(y(2:(end - 1)))].';
     Phi0Theta = ifft2(Phi0 .* Theta);
     Phi0Theta = [Phi0Theta(:, 1); Phi0Theta(1, 2:end).'];
     B = yZero - Phi0Theta;
@@ -65,7 +65,5 @@ function [ res ] = solveDirichlet( fHandle, xiHandle, etaHandle, mju, M, N )
     Phi = fft2(phi);
     %and the Answer, finally
     res = ifft2(Phi .* Theta);
-    res(M, :) = res(1, :);
-    res(:, N) = res(:, 1);
 end
 
